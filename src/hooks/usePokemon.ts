@@ -1,32 +1,28 @@
 import { useState } from "react";
 
-type Pokemon = {
-  name: string;
-  sprites: {
-    front_default: string;
-  };
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
-  height: number;
-  weight: number;
-  description?: string;
-};
+import { Pokemon, PokemonSpecies } from "@/types/api";
 
-export const usePokemon = () => {
+interface UsePokemonReturn {
+  query: string;
+  pokemon: Pokemon | null;
+  error: string | null;
+  isLoading: boolean;
+  handleSetQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchPokemon: () => Promise<void>;
+}
+
+export const usePokemon = (): UsePokemonReturn => {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSetQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSetQuery = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(e.target.value.toLowerCase());
     setError(null);
   };
 
-  const handleSearchPokemon = async () => {
+  const handleSearchPokemon = async (): Promise<void> => {
     if (!query) {
       setError("ポケモンの名前を入力してください");
       return;
@@ -42,22 +38,31 @@ export const usePokemon = () => {
       if (!response.ok) {
         throw new Error("ポケモンが見つかりませんでした");
       }
-      const data = await response.json();
+      const pokemonData = (await response.json()) as Pokemon;
 
       // 説明文を取得
-      const speciesResponse = await fetch(data.species.url);
-      const speciesData = await speciesResponse.json();
-      const description = speciesData.flavor_text_entries.find(
-        (entry: any) => entry.language.name === "ja",
-      )?.flavor_text;
+      const speciesResponse = await fetch(pokemonData.species.url);
+      if (!speciesResponse.ok) {
+        throw new Error("ポケモンの詳細情報の取得に失敗しました");
+      }
+      const speciesData = (await speciesResponse.json()) as PokemonSpecies;
+      const japaneseEntry = speciesData.flavor_text_entries.find(
+        (entry) => entry.language.name === "ja",
+      );
+
+      if (!japaneseEntry) {
+        throw new Error("日本語の説明文が見つかりませんでした");
+      }
 
       setPokemon({
-        ...data,
-        description: description?.replace(/\f/g, " ") || "",
+        ...pokemonData,
+        description: japaneseEntry.flavor_text.replace(/\f/g, " "),
       });
       setError(null);
     } catch (err) {
-      setError("ポケモンが見つかりませんでした");
+      setError(
+        err instanceof Error ? err.message : "ポケモンが見つかりませんでした",
+      );
       setPokemon(null);
     } finally {
       setIsLoading(false);

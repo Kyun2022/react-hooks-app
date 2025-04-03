@@ -1,16 +1,12 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
-This project is a Next.js application.  It includes a collection of practice applications accessible from the main page.  The main landing page is located at `pages/index.tsx`. The `pages/practice` directory contained individual practice application components.  All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages/practice` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed; all practice applications are now directly under `/pages`.
+This project is a Next.js application.  It includes a collection of practice applications accessible from the main page.  The main landing page is located at `pages/index.tsx`. The `pages/practice` directory contains individual practice application components.  All practice applications are now linked from the main landing page.  The landing page has been redesigned for improved aesthetics and user experience.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages/practice` directory, with improved styling and iconography.
 
 ## CODE STYLE
-Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.  The `react-icons` package has been added to the project.  The `next/image` component should be used for optimized image loading.
+Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.  The `react-icons` package has been added to the project.
 
 ## FOLDER ORGANIZATION
-The project follows a standard Next.js folder structure. See `<project-structure>` for details.  An `index.tsx` file has been added to the `pages` directory to serve as the main landing page. The `pages/practice` directory was added and populated with individual practice application components. A `pages/practice` directory was added and populated with individual practice application components.  The `pages/practice` directory has been removed, with all practice applications now directly under `/pages`.
+The project follows a standard Next.js folder structure. See `<project-structure>` for details.  An `index.tsx` file has been added to the `pages` directory to serve as the main landing page.  The `pages/practice` directory contains individual practice application components. A `pages/practice` directory was added and populated with individual practice application components.  The `pages/practice` directory now contains individual practice application components, each linked from the main landing page (`pages/index.tsx`).
 
 ## TECH STACK
 - Next.js
@@ -31,7 +27,7 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - When handling form submissions, ensure to use `e.preventDefault()` to prevent default form submission behavior.  Use `async/await` for proper handling of asynchronous functions within form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly.  Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
 - When adding new tasks, ensure that required properties, such as `index`, are included to avoid TypeScript errors.  See example in REFERENCE EXAMPLES.  Ensure that the `index` property is correctly assigned when adding new tasks to avoid TypeScript errors.
 - Ensure components are correctly exported and imported to avoid undefined component type errors.
-- Add return buttons to all practice application pages using Next.js Link component and react-icons.  See example in REFERENCE EXAMPLES.
+
 
 ## WORKFLOW & RELEASE RULES
 - Use Git for version control.
@@ -127,21 +123,11 @@ onClick={() => {
   Home
 </Link>
 ```
-- Example of using next/image component:
-```jsx
-<Image src="/image.jpg" alt="My Image" width={500} height={300} />
-```
-- Example of using next/image component with fill and priority:
-```jsx
-<div className="relative h-48 w-48">
-  <Image src={pokemon.sprites.front_default} alt={pokemon.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority />
-</div>
-```
 
 ## PROJECT DOCUMENTATION & CONTEXT SYSTEM
 - This `.cursorrules` file serves as the primary documentation.
 - Add links to external documentation as needed.
-- The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.
+- The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages/practice` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages/practice` directory, with improved styling and iconography.
 
 ## DEBUGGING
 - Utilize browser developer tools.

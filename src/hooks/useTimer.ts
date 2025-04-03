@@ -1,20 +1,34 @@
 import { useEffect, useState } from "react";
 
-export const useTimer = () => {
+interface UseTimerReturn {
+  formattedTime: string;
+  isRunning: boolean;
+  handleStart: () => void;
+  handleStop: () => void;
+  handleReset: () => void;
+}
+
+export const useTimer = (): UseTimerReturn => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let interval: NodeJS.Timeout;
+
     if (isRunning) {
-      timer = setInterval(() => {
+      interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     }
-    return () => clearInterval(timer);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [isRunning]);
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
@@ -23,20 +37,24 @@ export const useTimer = () => {
       .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleReset = () => {
+  const handleStart = (): void => {
+    setIsRunning(true);
+  };
+
+  const handleStop = (): void => {
+    setIsRunning(false);
+  };
+
+  const handleReset = (): void => {
     setTime(0);
     setIsRunning(false);
   };
 
-  const toggleTimer = () => {
-    setIsRunning(!isRunning);
-  };
-
   return {
-    time,
-    isRunning,
     formattedTime: formatTime(time),
+    isRunning,
+    handleStart,
+    handleStop,
     handleReset,
-    toggleTimer,
   };
 };

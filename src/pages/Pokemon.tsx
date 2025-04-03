@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { FaHome, FaSearch } from "react-icons/fa";
 
@@ -70,11 +71,16 @@ const Page: NextPage = () => {
               <div className="mt-4 flex flex-col items-center gap-4">
                 <div className="relative">
                   <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-rose-200 to-red-200 opacity-50 blur-xl" />
-                  <img
-                    src={pokemon.sprites.front_default}
-                    alt={pokemon.name}
-                    className="relative size-48"
-                  />
+                  <div className="relative size-48">
+                    <Image
+                      src={pokemon.sprites.front_default}
+                      alt={pokemon.name}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2 text-center">
                   <p className="text-gray-600">

@@ -1,54 +1,69 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-type Character = {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-};
+import { Character, StarWarsResponse } from "@/types/api";
 
-export const useStarWars = () => {
+interface UseStarWarsReturn {
+  character: Character | null;
+  error: string | null;
+  isLoading: boolean;
+  handleClickNextCharacter: () => Promise<void>;
+}
+
+export const useStarWars = (): UseStarWarsReturn => {
   const [character, setCharacter] = useState<Character | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchRandomCharacter = async () => {
+  const fetchRandomCharacter = async (): Promise<void> => {
     setIsLoading(true);
     setError(null);
-    try {
-      // Get total count of characters
-      const countResponse = await fetch("https://swapi.dev/api/people/");
-      const countData = await countResponse.json();
-      const totalCharacters = countData.count;
 
-      // Get random character
-      const randomId = Math.floor(Math.random() * totalCharacters) + 1;
-      const response = await fetch(`https://swapi.dev/api/people/${randomId}/`);
+    try {
+      const response = await fetch("https://swapi.dev/api/people/");
       if (!response.ok) {
-        throw new Error("キャラクターの取得に失敗しました");
+        throw new Error("キャラクター情報の取得に失敗しました");
       }
-      const data = await response.json();
-      setCharacter(data);
+      const data = (await response.json()) as StarWarsResponse;
+      const totalCount = data.count;
+      const randomId = Math.floor(Math.random() * totalCount) + 1;
+
+      const characterResponse = await fetch(
+        `https://swapi.dev/api/people/${randomId}/`,
+      );
+      if (!characterResponse.ok) {
+        throw new Error("キャラクター情報の取得に失敗しました");
+      }
+      const characterData = (await characterResponse.json()) as Character;
+      setCharacter(characterData);
+      setError(null);
     } catch (err) {
-      setError("キャラクターの取得に失敗しました");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "キャラクター情報の取得に失敗しました",
+      );
       setCharacter(null);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchRandomCharacter();
-  }, []);
+  const handleClickNextCharacter = async (): Promise<void> => {
+    try {
+      await fetchRandomCharacter();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "キャラクター情報の取得に失敗しました",
+      );
+    }
+  };
 
   return {
     character,
-    isLoading,
     error,
-    handleClickNextCharacter: fetchRandomCharacter,
+    isLoading,
+    handleClickNextCharacter,
   };
 };
