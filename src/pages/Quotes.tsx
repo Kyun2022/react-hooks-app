@@ -9,8 +9,15 @@ const Page: NextPage = () => {
   const { quote, error, isLoading, handleFetchQuote } = useQuotes();
 
   useEffect(() => {
-    void handleFetchQuote();
-  }, []);
+    const fetchQuote = async () => {
+      try {
+        await handleFetchQuote();
+      } catch (err) {
+        console.error("名言の取得に失敗しました:", err);
+      }
+    };
+    void fetchQuote();
+  }, [handleFetchQuote]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-yellow-100 via-amber-100 to-orange-100 py-12">
