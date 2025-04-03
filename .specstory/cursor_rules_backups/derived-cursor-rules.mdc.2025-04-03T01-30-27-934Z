@@ -1,0 +1,46 @@
+
+## PROJECT OVERVIEW
+This project is a Next.js application.  Further details to be added.
+
+## CODE STYLE
+Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.
+
+## FOLDER ORGANIZATION
+The project follows a standard Next.js folder structure. See `<project-structure>` for details.
+
+## TECH STACK
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Prettier
+- prettier-plugin-tailwindcss
+- VSCode Extensions: Tailwind CSS Class Sorter, Tailwind CSS IntelliSense
+
+## PROJECT-SPECIFIC STANDARDS
+- Maintain consistent naming conventions.
+- Write clear and concise code.
+- Follow Tailwind CSS class order guidelines (see CODE STYLE section).
+
+## WORKFLOW & RELEASE RULES
+- Use Git for version control.
+- Commit messages should be clear and concise.
+- Follow standard branching strategies (e.g., Gitflow).
+- Further details to be added.
+
+## REFERENCE EXAMPLES
+- Add relevant code examples here.  Example of corrected Tailwind class order: `<div className="mt-4 flex justify-center">` instead of `<div className="flex justify-center mt-4">`
+
+## PROJECT DOCUMENTATION & CONTEXT SYSTEM
+- This `.cursorrules` file serves as the primary documentation.
+- Add links to external documentation as needed.
+
+## DEBUGGING
+- Utilize browser developer tools.
+- Use console.log for debugging purposes.
+
+## FINAL DOs AND DON'Ts
+- **DO:** Follow the coding style guidelines.
+- **DO:** Write comprehensive commit messages.
+- **DO:** Use the recommended VSCode extensions and automatic formatting tools.
+- **DON'T:** Commit code with formatting errors.
+- **DON'T:** Ignore Tailwind CSS class order warnings.
