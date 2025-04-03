@@ -1,16 +1,12 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
-This project is a Next.js application.  It includes a collection of practice applications accessible from the main page.  The main landing page is located at `pages/index.tsx`. The `pages/practice` directory contains individual practice application components.  All practice applications are now linked from the main landing page.  The landing page has been redesigned for improved aesthetics and user experience.
+This project is a Next.js application.  Further details to be added.
 
 ## CODE STYLE
-Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.  The `react-icons` package has been added to the project.
+Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.
 
 ## FOLDER ORGANIZATION
-The project follows a standard Next.js folder structure. See `<project-structure>` for details.  An `index.tsx` file has been added to the `pages` directory to serve as the main landing page.  The `pages/practice` directory contains individual practice application components. A `pages/practice` directory was added and populated with individual practice application components.
+The project follows a standard Next.js folder structure. See `<project-structure>` for details.
 
 ## TECH STACK
 - Next.js
@@ -18,7 +14,6 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - Tailwind CSS
 - Prettier
 - prettier-plugin-tailwindcss
-- react-icons
 - VSCode Extensions: Tailwind CSS Class Sorter, Tailwind CSS IntelliSense
 
 ## PROJECT-SPECIFIC STANDARDS
@@ -28,9 +23,9 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - Correct TypeScript type definitions to avoid errors like "Unsafe argument of type `any` assigned to a parameter of type `SetStateAction<Signal>`".  Ensure proper type definitions for state variables and function parameters, especially when using `useState` and `keyof` type operators.  Refer to the updated examples in the REFERENCE EXAMPLES section for correcting type definitions related to `useState` and `keyof`.
 - Address potential memory leaks by clearing intervals using `clearInterval` within `useEffect` cleanup functions.  See example in REFERENCE EXAMPLES.
 - When using images in your application, ensure you use the correct HTML tag (`<img>`) for standard image display. Using `<image>` within HTML will cause TypeScript errors.  Use `<img src={...} alt={...}>` for standard images and handle SVGs appropriately, avoiding the `<image>` tag.
-- When handling form submissions, ensure to use `e.preventDefault()` to prevent default form submission behavior.  Use `async/await` for proper handling of asynchronous functions within form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly.  Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
-- When adding new tasks, ensure that required properties, such as `index`, are included to avoid TypeScript errors.  See example in REFERENCE EXAMPLES.  Ensure that the `index` property is correctly assigned when adding new tasks to avoid TypeScript errors.
-- Ensure components are correctly exported and imported to avoid undefined component type errors.
+- When handling form submissions, ensure to use `e.preventDefault()` to prevent default form submission behavior.  Use `async/await` for proper handling of asynchronous functions within form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly.
+- When adding new tasks, ensure that required properties, such as `index`, are included to avoid TypeScript errors.  See example in REFERENCE EXAMPLES.
+
 
 ## WORKFLOW & RELEASE RULES
 - Use Git for version control.
@@ -81,7 +76,7 @@ useEffect(() => {
   e.preventDefault();
   await handleSearchPokemon();
 }}>
-  <input type="text" onKeyDown={(e) => { if (e.key === 'Enter') {e.preventDefault(); handleSearchPokemon();}}}/>
+  <input type="text" onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() & handleSearchPokemon(); }}/>
 </form>
 ```
 - Example of adding a task with a required index property (from 2025-04-03 interaction):
@@ -110,30 +105,18 @@ onClick={() => {
   );
 }}
 ```
-- Example of handling form submission with Enter key (from 2025-04-03 interaction):
-```typescript
-<form onSubmit={(e) => {
-  e.preventDefault();
-  handleAddTask();
-}}>
-  <input type="text"  />
-</form>
-```
 
 ## PROJECT DOCUMENTATION & CONTEXT SYSTEM
 - This `.cursorrules` file serves as the primary documentation.
 - Add links to external documentation as needed.
-- The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages/practice` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages/practice` directory, with improved styling and iconography.
 
 ## DEBUGGING
 - Utilize browser developer tools.
 - Use console.log for debugging purposes.
 - When encountering TypeScript errors, carefully review type definitions for accuracy and consistency.  Pay close attention to the HTML tag used for image display; use `<img>` instead of `<image>`.  Handle SVGs appropriately, avoiding the `<image>` tag.
 - Pay close attention to the lifecycle of `useEffect` hooks, particularly when dealing with intervals or timers.  Ensure proper cleanup functions are implemented to prevent memory leaks.
-- When debugging form submissions, ensure `e.preventDefault()` is used correctly and asynchronous operations are handled with `async/await`.  Ensure that form submissions also handle the Enter key press correctly using `onKeyDown` event and checking for `e.key === 'Enter'`.
-- When debugging TypeScript errors related to missing properties in objects, ensure all required properties are included when creating new objects.  Ensure that event handlers, such as `onClick`, are correctly assigned to buttons and other interactive elements.  Address errors related to undefined component types by ensuring components are correctly exported and imported.
-- Check for undefined component types by ensuring correct export and import of components.
-
+- When debugging form submissions, ensure `e.preventDefault()` is used correctly and asynchronous operations are handled with `async/await`.
+- When debugging TypeScript errors related to missing properties in objects, ensure all required properties are included when creating new objects.  Ensure that event handlers, such as `onClick`, are correctly assigned to buttons and other interactive elements.
 
 ## FINAL DOs AND DON'Ts
 - **DO:** Follow the coding style guidelines.
@@ -142,8 +125,8 @@ onClick={() => {
 - **DO:** Pay close attention to TypeScript type definitions to prevent runtime errors.  Ensure correct usage of `keyof` and proper type definitions for `useState` hooks.  Implement proper cleanup functions in `useEffect` hooks to prevent memory leaks. Use `<img>` tag for images. Handle SVGs appropriately, avoiding the `<image>` tag.
 - **DO:** Use descriptive labels for buttons to clearly indicate their function (e.g., "Start" and "Stop").
 - **DO:** Use `e.preventDefault()` in form submission handlers.
-- **DO:** Use `async/await` for asynchronous operations in form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly. Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
-- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.  Ensure components are correctly exported and imported to avoid undefined component type errors.  Ensure that all necessary properties, including `index`, are included when creating new tasks.
+- **DO:** Use `async/await` for asynchronous operations in form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly.
+- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.
 - **DON'T:** Commit code with formatting errors.
 - **DON'T:** Ignore Tailwind CSS class order warnings.
 - **DON'T:** Ignore TypeScript type errors.
@@ -152,4 +135,3 @@ onClick={() => {
 - **DON'T:** Forget to prevent default form submission behavior using `e.preventDefault()`.
 - **DON'T:** Omit required properties when creating new objects.
 - **DON'T:** Forget to assign `onClick` handlers to buttons and other interactive elements.
-- **DON'T:** Forget to correctly export and import components to avoid undefined component type errors.

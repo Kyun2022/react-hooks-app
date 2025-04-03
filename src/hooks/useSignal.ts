@@ -1,22 +1,44 @@
 import { useEffect, useState } from "react";
 
-type Signal = keyof typeof CYCLE;
+type SignalColor = "red" | "yellow" | "green";
 
-type UseSignal = {
-  signal: Signal;
-};
+const SIGNAL_TIMING = {
+  red: 5000,
+  yellow: 2000,
+  green: 5000,
+} as const;
 
-export const CYCLE = { red: "blue", blue: "yellow", yellow: "red" } as const;
-
-export const useSignal = (): UseSignal => {
-  const [signal, setSignal] = useState<Signal>("red");
+export const useSignal = () => {
+  const [currentColor, setCurrentColor] = useState<SignalColor>("red");
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      setSignal(CYCLE[signal]);
-    }, 1000);
-    return () => clearTimeout(timerId);
-  }, [signal]);
+    const changeSignal = () => {
+      setCurrentColor((prev) => {
+        switch (prev) {
+          case "red":
+            return "green";
+          case "green":
+            return "yellow";
+          case "yellow":
+            return "red";
+          default:
+            return "red";
+        }
+      });
+    };
 
-  return { signal };
+    const timer = setInterval(changeSignal, SIGNAL_TIMING[currentColor]);
+
+    return () => clearInterval(timer);
+  }, [currentColor]);
+
+  const getRemainingSeconds = () => {
+    return Math.ceil(SIGNAL_TIMING[currentColor] / 1000);
+  };
+
+  return {
+    currentColor,
+    remainingSeconds: getRemainingSeconds(),
+    SIGNAL_TIMING,
+  };
 };

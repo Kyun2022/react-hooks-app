@@ -11,29 +11,44 @@ type Character = {
   gender: string;
 };
 
-type UseStarWars = () => {
-  character: Character | null;
-  handleClickNextCharacter: () => void;
-};
-
-export const useStarWars: UseStarWars = () => {
+export const useStarWars = () => {
   const [character, setCharacter] = useState<Character | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [id, setId] = useState(1);
+  const fetchRandomCharacter = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      // Get total count of characters
+      const countResponse = await fetch("https://swapi.dev/api/people/");
+      const countData = await countResponse.json();
+      const totalCharacters = countData.count;
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      const response = await fetch(`https://swapi.dev/api/people/${id}/`);
-      const data = (await response.json()) as Character;
+      // Get random character
+      const randomId = Math.floor(Math.random() * totalCharacters) + 1;
+      const response = await fetch(`https://swapi.dev/api/people/${randomId}/`);
+      if (!response.ok) {
+        throw new Error("キャラクターの取得に失敗しました");
+      }
+      const data = await response.json();
       setCharacter(data);
-    };
-
-    void fetchCharacter();
-  }, [id]);
-
-  const handleClickNextCharacter = () => {
-    setId(id + 1);
+    } catch (err) {
+      setError("キャラクターの取得に失敗しました");
+      setCharacter(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return { character, handleClickNextCharacter };
+  useEffect(() => {
+    fetchRandomCharacter();
+  }, []);
+
+  return {
+    character,
+    isLoading,
+    error,
+    handleClickNextCharacter: fetchRandomCharacter,
+  };
 };

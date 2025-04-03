@@ -1,0 +1,84 @@
+
+## PROJECT OVERVIEW
+This project is a Next.js application.  Further details to be added.
+
+## CODE STYLE
+Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format.
+
+## FOLDER ORGANIZATION
+The project follows a standard Next.js folder structure. See `<project-structure>` for details.
+
+## TECH STACK
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Prettier
+- prettier-plugin-tailwindcss
+- VSCode Extensions: Tailwind CSS Class Sorter, Tailwind CSS IntelliSense
+
+## PROJECT-SPECIFIC STANDARDS
+- Maintain consistent naming conventions.
+- Write clear and concise code.
+- Follow Tailwind CSS class order guidelines (see CODE STYLE section).
+- Correct TypeScript type definitions to avoid errors like "Unsafe argument of type `any` assigned to a parameter of type `SetStateAction<Signal>`".  Ensure proper type definitions for state variables and function parameters, especially when using `useState` and `keyof` type operators.  Refer to the updated examples in the REFERENCE EXAMPLES section for correcting type definitions related to `useState` and `keyof`.
+- Address potential memory leaks by clearing intervals using `clearInterval` within `useEffect` cleanup functions.  See example in REFERENCE EXAMPLES.
+- When using images in your application, ensure you use the correct HTML tag (`<img>`) for standard image display. Using `<image>` within HTML will cause TypeScript errors.
+
+
+## WORKFLOW & RELEASE RULES
+- Use Git for version control.
+- Commit messages should be clear and concise.
+- Follow standard branching strategies (e.g., Gitflow).
+- Add clear descriptions of bug fixes in commit messages.  Include relevant context and steps to reproduce the issue.
+- Further details to be added.
+
+## REFERENCE EXAMPLES
+- Add relevant code examples here.  Example of corrected Tailwind class order: `<div className="mt-4 flex justify-center">` instead of `<div className="flex justify-center mt-4">`
+- Example of corrected TypeScript type definition (from 2025-04-02 interaction):
+```typescript
+  import { useEffect, useState } from "react";
+
+  type Signal = keyof typeof CYCLE;
+
+  type UseSignal = {
+    signal: Signal;
+  };
+```
+- Example of corrected `useEffect` hook for handling intervals and preventing memory leaks (from 2025-04-01 interaction):
+```typescript
+useEffect(() => {
+  let interval: NodeJS.Timeout;
+  if (isRunning) {
+    interval = setInterval(() => {
+      setSeconds(prevState => prevState + 1);
+    }, 1000);
+  }
+  return () => {
+    clearInterval(interval);
+  };
+}, [isRunning]);
+```
+- Example of correcting image tag usage (from 2025-04-03 interaction):  Use `<img src={...} alt={...}>` instead of `<image src={...} alt={...}>`
+
+
+## PROJECT DOCUMENTATION & CONTEXT SYSTEM
+- This `.cursorrules` file serves as the primary documentation.
+- Add links to external documentation as needed.
+
+## DEBUGGING
+- Utilize browser developer tools.
+- Use console.log for debugging purposes.
+- When encountering TypeScript errors, carefully review type definitions for accuracy and consistency.  Pay close attention to the HTML tag used for image display; use `<img>` instead of `<image>`.
+- Pay close attention to the lifecycle of `useEffect` hooks, particularly when dealing with intervals or timers.  Ensure proper cleanup functions are implemented to prevent memory leaks.
+
+## FINAL DOs AND DON'Ts
+- **DO:** Follow the coding style guidelines.
+- **DO:** Write comprehensive commit messages.
+- **DO:** Use the recommended VSCode extensions and automatic formatting tools.
+- **DO:** Pay close attention to TypeScript type definitions to prevent runtime errors.  Ensure correct usage of `keyof` and proper type definitions for `useState` hooks.  Implement proper cleanup functions in `useEffect` hooks to prevent memory leaks. Use `<img>` tag for images.
+- **DO:** Use descriptive labels for buttons to clearly indicate their function (e.g., "Start" and "Stop").
+- **DON'T:** Commit code with formatting errors.
+- **DON'T:** Ignore Tailwind CSS class order warnings.
+- **DON'T:** Ignore TypeScript type errors.
+- **DON'T:** Neglect to clear intervals in `useEffect` cleanup functions.
+- **DON'T:** Use the `<image>` tag for displaying images in HTML; use `<img>` instead.

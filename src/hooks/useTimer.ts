@@ -1,40 +1,42 @@
 import { useEffect, useState } from "react";
 
-type UseTimer = () => {
-  seconds: number;
-  isRunning: boolean;
-  handleClickToggle: () => void;
-  handleClickReset: () => void;
-};
-
-export const useTimer: UseTimer = () => {
-  const [seconds, setSeconds] = useState(0);
+export const useTimer = () => {
+  const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let timer: NodeJS.Timeout;
     if (isRunning) {
-      interval = setInterval(() => {
-        setSeconds((prevState) => prevState + 1);
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
       }, 1000);
     }
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(timer);
   }, [isRunning]);
 
-  const handleClickToggle = () => {
-    setIsRunning((prevState) => !prevState);
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleClickReset = () => {
-    setSeconds(0);
+  const handleReset = () => {
+    setTime(0);
     setIsRunning(false);
   };
+
+  const toggleTimer = () => {
+    setIsRunning(!isRunning);
+  };
+
   return {
-    seconds,
+    time,
     isRunning,
-    handleClickToggle,
-    handleClickReset,
+    formattedTime: formatTime(time),
+    handleReset,
+    toggleTimer,
   };
 };
