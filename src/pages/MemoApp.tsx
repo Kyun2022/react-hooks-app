@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaPlus, FaTrash } from "react-icons/fa";
 
 import { useMemoApp } from "@/hooks/useMemoApp";
 
@@ -14,7 +14,7 @@ const Page: NextPage = () => {
   } = useMemoApp();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-100 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-cyan-100 via-sky-100 to-blue-100 py-12">
       <Link
         href="/"
         className="group fixed left-4 top-4 flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-gray-600 shadow-lg backdrop-blur-sm transition-all hover:bg-white"
@@ -24,8 +24,8 @@ const Page: NextPage = () => {
       </Link>
 
       <div className="w-full max-w-2xl px-4">
-        <div className="rounded-2xl bg-white p-8 shadow-2xl">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-1 text-sm font-medium text-white">
+        <div className="relative rounded-2xl bg-white p-8 shadow-2xl">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 px-6 py-1 text-sm font-medium text-white">
             MEMO APP
           </div>
 
@@ -35,51 +35,40 @@ const Page: NextPage = () => {
                 e.preventDefault();
                 handleAddMemo();
               }}
-              className="space-y-4"
+              className="relative"
             >
-              <textarea
+              <input
+                type="text"
+                placeholder="新しいメモを入力..."
+                className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 pr-24 text-gray-700 outline-none transition-all focus:border-cyan-400"
                 value={memoText}
                 onChange={handleChangeMemoText}
-                placeholder="メモを入力..."
-                className="h-32 w-full resize-none rounded-xl border-2 border-gray-200 p-4 text-gray-700 outline-none transition-all focus:border-blue-400"
               />
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-center font-medium text-white transition-all hover:from-blue-700 hover:to-blue-800"
+                className="group absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-all hover:shadow-lg"
               >
+                <FaPlus className="transition-transform duration-300 group-hover:rotate-90" />
                 追加
               </button>
             </form>
+          </div>
 
-            <div className="mt-8 space-y-4">
-              {memoList.map((memo, index) => (
-                <div
-                  key={index}
-                  className="group relative rounded-lg border border-gray-200 p-4"
+          <div className="mt-8 space-y-4">
+            {memoList.map((memo, index) => (
+              <div
+                key={index}
+                className="group flex items-center justify-between rounded-xl border-2 border-gray-100 bg-gray-50 p-4 transition-all hover:border-cyan-200 hover:bg-cyan-50"
+              >
+                <span className="text-gray-700">{memo}</span>
+                <button
+                  onClick={() => handleDeleteMemo(index)}
+                  className="rounded-lg bg-gray-100 p-2 text-gray-600 transition-all hover:bg-red-100 hover:text-red-600"
                 >
-                  <p className="text-gray-700">{memo}</p>
-                  <button
-                    onClick={() => handleDeleteMemo(index)}
-                    className="absolute -right-2 -top-2 hidden rounded-full bg-red-500 p-1 text-white transition-all hover:bg-red-600 group-hover:block"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="size-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-            </div>
+                  <FaTrash />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
