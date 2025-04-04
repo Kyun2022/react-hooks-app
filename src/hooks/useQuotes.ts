@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Quote {
   text: string;
@@ -52,13 +52,22 @@ interface UseQuotesReturn {
   quote: Quote | null;
   error: string | null;
   isLoading: boolean;
+  isAutoRefresh: boolean;
   handleFetchQuote: () => Promise<void>;
+  toggleAutoRefresh: () => void;
 }
 
 export const useQuotes = (): UseQuotesReturn => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAutoRefresh, setIsAutoRefresh] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout>();
+
+  const getRandomQuote = (): Quote => {
+    const randomIndex = Math.floor(Math.random() * QUOTES.length);
+    return QUOTES[randomIndex];
+  };
 
   const handleFetchQuote = useCallback(async (): Promise<void> => {
     if (isLoading) return;
@@ -67,13 +76,8 @@ export const useQuotes = (): UseQuotesReturn => {
     setError(null);
 
     try {
-      // ランダムに名言を選択
-      const randomIndex = Math.floor(Math.random() * QUOTES.length);
-      const randomQuote = QUOTES[randomIndex];
-
-      // 少し遅延を入れて非同期処理をシミュレート
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
+      const randomQuote = getRandomQuote();
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       setQuote(randomQuote);
       setError(null);
     } catch (err) {
@@ -84,10 +88,36 @@ export const useQuotes = (): UseQuotesReturn => {
     }
   }, [isLoading]);
 
+  const toggleAutoRefresh = useCallback(() => {
+    setIsAutoRefresh((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    // 初回の名言を取得
+    void handleFetchQuote();
+
+    // 自動更新の設定
+    if (isAutoRefresh) {
+      intervalRef.current = setInterval(() => {
+        const randomQuote = getRandomQuote();
+        setQuote(randomQuote);
+      }, 10000);
+
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = undefined;
+        }
+      };
+    }
+  }, [isAutoRefresh]);
+
   return {
     quote,
     error,
     isLoading,
+    isAutoRefresh,
     handleFetchQuote,
+    toggleAutoRefresh,
   };
 };

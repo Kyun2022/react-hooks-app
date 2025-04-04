@@ -1,13 +1,9 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
 This project is a Next.js application.  It includes a collection of practice applications accessible from the main page. The main landing page is located at `pages/index.tsx`. All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience. The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed.
 
 ## CODE STYLE
-Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format. The `react-icons` package has been added to the project. The `next/image` component should be used for optimized image loading.  Avoid using custom class names in Tailwind CSS; use existing classes to ensure consistency and maintainability.  Use only standard Tailwind CSS classes. Avoid custom class names.  Use `font-mono` only when necessary and justified.
+Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format. The `react-icons` package has been added to the project. The `next/image` component should be used for optimized image loading.  Avoid using custom class names in Tailwind CSS; use existing classes to ensure consistency and maintainability.
 
 ## FOLDER ORGANIZATION
 The project follows a standard Next.js folder structure. See `<project-structure>` for details. An `index.tsx` file has been added to the `pages` directory to serve as the main landing page. The `pages/practice` directory was added and populated with individual practice application components. The `pages/practice` directory has been removed, with all practice applications now directly under `/pages`.
@@ -22,7 +18,7 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - VSCode Extensions: Tailwind CSS Class Sorter, Tailwind CSS IntelliSense
 
 ## PROJECT-SPECIFIC STANDARDS
-- Maintain consistent naming conventions.  All filenames should be lowercase.  All application pages should include a return button using the Next.js Link component and react-icons.
+- Maintain consistent naming conventions.  All filenames should be lowercase.
 - Write clear and concise code.
 - Follow Tailwind CSS class order guidelines (see CODE STYLE section).
 - Correct TypeScript type definitions to avoid errors like "Unsafe argument of type `any` assigned to a parameter of type `SetStateAction<Signal>`".  Ensure proper type definitions for state variables and function parameters, especially when using `useState` and `keyof` type operators.  Refer to the updated examples in the REFERENCE EXAMPLES section for correcting type definitions related to `useState` and `keyof`.
@@ -31,8 +27,7 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - When handling form submissions, ensure to use `e.preventDefault()` to prevent default form submission behavior.  Use `async/await` for proper handling of asynchronous functions within form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly.  Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
 - When adding new tasks, ensure that required properties, such as `index`, are included to avoid TypeScript errors.  See example in REFERENCE EXAMPLES.  Ensure that the `index` property is correctly assigned when adding new tasks to avoid TypeScript errors.
 - Ensure components are correctly exported and imported to avoid undefined component type errors.
-- Add return buttons to all practice application pages using Next.js Link component and react-icons.  See example in REFERENCE EXAMPLES.  All practice application pages should include a return button using the Next.js Link component and react-icons. All application pages should include a return button using the Next.js Link component and react-icons. Use only standard Tailwind CSS classes. Avoid custom class names.
-
+- Add return buttons to all practice application pages using Next.js Link component and react-icons.  See example in REFERENCE EXAMPLES.  All practice application pages should include a return button using the Next.js Link component and react-icons.  All application pages should include a return button using the Next.js Link component and react-icons.
 
 ## WORKFLOW & RELEASE RULES
 - Use Git for version control.
