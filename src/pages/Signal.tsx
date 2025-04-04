@@ -5,7 +5,7 @@ import { FaHome } from "react-icons/fa";
 import { useSignal } from "@/hooks/useSignal";
 
 const Page: NextPage = () => {
-  const { signal, handleChangeSignal } = useSignal();
+  const { signal, isAuto, handleChangeSignal, toggleMode } = useSignal();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 py-12">
@@ -26,21 +26,21 @@ const Page: NextPage = () => {
           <div className="mt-4">
             <div className="mx-auto flex h-80 w-32 flex-col items-center justify-between rounded-2xl bg-gray-800 p-4">
               <div
-                className={`size-20 rounded-full ${
+                className={`size-20 rounded-full transition-all duration-300 ${
                   signal === "red"
                     ? "bg-red-500 shadow-lg shadow-red-500/50"
                     : "bg-red-950"
                 }`}
               />
               <div
-                className={`size-20 rounded-full ${
+                className={`size-20 rounded-full transition-all duration-300 ${
                   signal === "yellow"
                     ? "bg-yellow-400 shadow-lg shadow-yellow-400/50"
                     : "bg-yellow-950"
                 }`}
               />
               <div
-                className={`size-20 rounded-full ${
+                className={`size-20 rounded-full transition-all duration-300 ${
                   signal === "green"
                     ? "bg-green-500 shadow-lg shadow-green-500/50"
                     : "bg-green-950"
@@ -48,12 +48,27 @@ const Page: NextPage = () => {
               />
             </div>
 
-            <button
-              onClick={handleChangeSignal}
-              className="mx-auto mt-8 block rounded-lg bg-gradient-to-r from-gray-600 to-gray-700 px-6 py-3 font-medium text-white transition-all hover:from-gray-700 hover:to-gray-800"
-            >
-              信号を切り替える
-            </button>
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <button
+                onClick={toggleMode}
+                className={`rounded-lg px-6 py-2 text-sm font-medium transition-all ${
+                  isAuto
+                    ? "bg-purple-100 text-purple-700 hover:bg-purple-200"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {isAuto ? "自動モード" : "手動モード"}
+              </button>
+
+              {!isAuto && (
+                <button
+                  onClick={handleChangeSignal}
+                  className="rounded-lg bg-gradient-to-r from-gray-600 to-gray-700 px-6 py-3 font-medium text-white transition-all hover:from-gray-700 hover:to-gray-800"
+                >
+                  信号を切り替える
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
