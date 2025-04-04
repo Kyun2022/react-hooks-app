@@ -1,7 +1,3 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
 This project is a Next.js application.  It includes a collection of practice applications accessible from the main page. The main landing page is located at `pages/index.tsx`. All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience. The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed.
@@ -150,7 +146,6 @@ const filteredUsers = useMemo<User[]>(
   // ...
 ))}
 ```
-- Example of correcting a typo in variable name (from 2025-04-04 interaction): Use `users` instead of `sers`.
 
 ## PROJECT DOCUMENTATION & CONTEXT SYSTEM
 - This `.cursorrules` file serves as the primary documentation.
@@ -165,7 +160,7 @@ const filteredUsers = useMemo<User[]>(
 - When debugging form submissions, ensure `e.preventDefault()` is used correctly and asynchronous operations are handled with `async/await`.  Ensure that form submissions also handle the Enter key press correctly using `onKeyDown` event and checking for `e.key === 'Enter'`.
 - When debugging TypeScript errors related to missing properties in objects, ensure all required properties are included when creating new objects.  Ensure that event handlers, such as `onClick`, are correctly assigned to buttons and other interactive elements.  Address errors related to undefined component types by ensuring components are correctly exported and imported.
 - Check for undefined component types by ensuring correct export and import of components.
-- When debugging type errors, ensure that parameters in callback functions (e.g., for `filter` and `map`) are explicitly typed.  Also ensure that the return type of `useMemo` is explicitly defined.  Ensure that `useMemo` is correctly imported.
+- When debugging type errors, ensure that parameters in callback functions (e.g., for `filter` and `map`) are explicitly typed.  Also ensure that the return type of `useMemo` is explicitly defined.
 
 
 ## FINAL DOs AND DON'Ts
@@ -176,7 +171,7 @@ const filteredUsers = useMemo<User[]>(
 - **DO:** Use descriptive labels for buttons to clearly indicate their function (e.g., "Start" and "Stop").
 - **DO:** Use `e.preventDefault()` in form submission handlers.
 - **DO:** Use `async/await` for asynchronous operations in form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly. Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
-- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.  Ensure components are correctly exported and imported to avoid undefined component type errors.  Ensure that all necessary properties, including `index`, are included when creating new tasks. Add return buttons to all practice application pages.  Explicitly type parameters in callback functions and return values of `useMemo`. Ensure `useMemo` is correctly imported.
+- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.  Ensure components are correctly exported and imported to avoid undefined component type errors.  Ensure that all necessary properties, including `index`, are included when creating new tasks. Add return buttons to all practice application pages.  Explicitly type parameters in callback functions and return values of `useMemo`.
 - **DON'T:** Commit code with formatting errors.
 - **DON'T:** Ignore Tailwind CSS class order warnings.
 - **DON'T:** Ignore TypeScript type errors.
@@ -186,4 +181,4 @@ const filteredUsers = useMemo<User[]>(
 - **DON'T:** Omit required properties when creating new objects.
 - **DON'T:** Forget to assign `onClick` handlers to buttons and other interactive elements.
 - **DON'T:** Forget to correctly export and import components to avoid undefined component type errors.
-- **DON'T:** Forget to include all necessary properties, including `index`, when creating new tasks. Add return buttons to all practice application pages.  Use only standard Tailwind CSS classes. Avoid custom class names.  Do not use implicitly typed parameters in callback functions. Do not omit the return type in `useMemo`. Do not forget to import `useMemo`.
+- **DON'T:** Forget to include all necessary properties, including `index`, when creating new tasks. Add return buttons to all practice application pages.  Use only standard Tailwind CSS classes. Avoid custom class names.  Do not use implicitly typed parameters in callback functions. Do not omit the return type in `useMemo`.
