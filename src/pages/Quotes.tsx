@@ -1,12 +1,19 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect } from "react";
-import { FaHome, FaRandom } from "react-icons/fa";
+import { FaHome, FaPause, FaPlay, FaRandom } from "react-icons/fa";
 
 import { useQuotes } from "@/hooks/useQuotes";
 
 const Page: NextPage = () => {
-  const { quote, error, isLoading, handleFetchQuote } = useQuotes();
+  const {
+    quote,
+    error,
+    isLoading,
+    isAutoRefresh,
+    handleFetchQuote,
+    toggleAutoRefresh,
+  } = useQuotes();
 
   useEffect(() => {
     const fetchQuote = async () => {
@@ -41,24 +48,43 @@ const Page: NextPage = () => {
             ) : (
               <div className="space-y-4 text-center">
                 {quote && (
-                  <>
+                  <div>
                     <p className="text-xl font-medium text-gray-700">
                       {quote.text}
                     </p>
                     <p className="text-gray-500">- {quote.author}</p>
-                  </>
+                  </div>
                 )}
               </div>
             )}
 
-            <button
-              onClick={handleFetchQuote}
-              disabled={isLoading}
-              className="group mx-auto mt-8 flex items-center gap-2 rounded-lg bg-gradient-to-r from-yellow-600 to-orange-600 px-6 py-3 font-medium text-white transition-all hover:from-yellow-700 hover:to-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <FaRandom className="transition-transform duration-300 group-hover:rotate-180" />
-              {isLoading ? "読み込み中..." : "ランダムな名言を表示"}
-            </button>
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <button
+                onClick={handleFetchQuote}
+                disabled={isLoading}
+                className="group flex items-center gap-2 rounded-lg bg-gradient-to-r from-yellow-600 to-orange-600 px-6 py-3 font-medium text-white transition-all hover:from-yellow-700 hover:to-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <FaRandom className="transition-transform duration-300 group-hover:rotate-180" />
+                {isLoading ? "読み込み中..." : "ランダムな名言を表示"}
+              </button>
+
+              <button
+                onClick={toggleAutoRefresh}
+                className="group flex items-center gap-2 rounded-lg bg-gradient-to-r from-gray-600 to-gray-700 px-6 py-3 font-medium text-white transition-all hover:from-gray-700 hover:to-gray-800"
+              >
+                {isAutoRefresh ? (
+                  <div className="flex items-center gap-2">
+                    <FaPause className="transition-transform duration-300 group-hover:scale-110" />
+                    自動更新を停止
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <FaPlay className="transition-transform duration-300 group-hover:scale-110" />
+                    自動更新を開始
+                  </div>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
