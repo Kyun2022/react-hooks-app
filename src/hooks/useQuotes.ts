@@ -48,6 +48,9 @@ const QUOTES: Quote[] = [
   },
 ];
 
+// 初期値として最初の名言を使用
+const INITIAL_QUOTE = QUOTES[0];
+
 interface UseQuotesReturn {
   quote: Quote | null;
   error: string | null;
@@ -58,16 +61,21 @@ interface UseQuotesReturn {
 }
 
 export const useQuotes = (): UseQuotesReturn => {
-  const [quote, setQuote] = useState<Quote | null>(null);
+  const [quote, setQuote] = useState<Quote | null>(INITIAL_QUOTE);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAutoRefresh, setIsAutoRefresh] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout>();
+  const isInitialMount = useRef(true);
 
-  const getRandomQuote = (): Quote => {
-    const randomIndex = Math.floor(Math.random() * QUOTES.length);
+  const getRandomQuote = useCallback((): Quote => {
+    const currentIndex = QUOTES.findIndex((q) => q.text === quote?.text);
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * QUOTES.length);
+    } while (randomIndex === currentIndex);
     return QUOTES[randomIndex];
-  };
+  }, [quote]);
 
   const handleFetchQuote = useCallback(async (): Promise<void> => {
     if (isLoading) return;
@@ -86,15 +94,18 @@ export const useQuotes = (): UseQuotesReturn => {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading]);
+  }, [isLoading, getRandomQuote]);
 
   const toggleAutoRefresh = useCallback(() => {
     setIsAutoRefresh((prev) => !prev);
   }, []);
 
   useEffect(() => {
-    // 初回の名言を取得
-    void handleFetchQuote();
+    // 初回マウント時はスキップ
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
 
     // 自動更新の設定
     if (isAutoRefresh) {
@@ -110,7 +121,7 @@ export const useQuotes = (): UseQuotesReturn => {
         }
       };
     }
-  }, [isAutoRefresh]);
+  }, [isAutoRefresh, getRandomQuote]);
 
   return {
     quote,

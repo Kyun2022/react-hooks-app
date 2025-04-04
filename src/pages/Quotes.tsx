@@ -31,20 +31,18 @@ const Page: NextPage = () => {
           </div>
 
           <div className="mt-4">
-            {error ? (
-              <div className="text-center text-red-500">{error}</div>
-            ) : (
-              <div className="space-y-4 text-center">
-                {quote && (
-                  <div>
-                    <p className="text-xl font-medium text-gray-700">
-                      {quote.text}
-                    </p>
-                    <p className="text-gray-500">- {quote.author}</p>
-                  </div>
-                )}
-              </div>
-            )}
+            <div className="space-y-4 text-center">
+              {error ? (
+                <div className="text-red-500">{error}</div>
+              ) : quote ? (
+                <div>
+                  <p className="text-xl font-medium text-gray-700">
+                    {quote.text}
+                  </p>
+                  <p className="text-gray-500">- {quote.author}</p>
+                </div>
+              ) : null}
+            </div>
 
             <div className="mt-8 flex items-center justify-center gap-4">
               <button
