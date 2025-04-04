@@ -38,7 +38,7 @@ const Page: NextPage = () => {
       <div className="mx-auto max-w-6xl px-4 py-16">
         <h1 className="mb-12 text-center text-4xl font-bold text-gray-800">
           <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            プラクティスアプリ一覧
+            アプリ一覧
           </span>
         </h1>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
