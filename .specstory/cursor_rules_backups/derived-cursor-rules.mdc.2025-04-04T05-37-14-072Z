@@ -1,10 +1,6 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
-This project is a Next.js application.  It includes a collection of practice applications accessible from the main page. The main landing page is located at `pages/index.tsx`. All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience. The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed. Links to Search.tsx and Memory.tsx have been added to the index page.  Links to Search.tsx and Memory.tsx have been added to the index page.  The main page now includes links to Search.tsx and Memory.tsx, with improved styling and iconography.
+This project is a Next.js application.  It includes a collection of practice applications accessible from the main page. The main landing page is located at `pages/index.tsx`. All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience. The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed.
 
 ## CODE STYLE
 Adhere to standard JavaScript/TypeScript conventions.  Use Prettier for code formatting.  Tailwind CSS class order should follow the order: margin, padding (mt, mx, etc.), then layout (flex, justify-center, etc.), then others.  Utilize Tailwind CSS Class Sorter and/or Tailwind CSS IntelliSense VSCode extensions to assist with maintaining correct class order.  To automatically sort classes, install `prettier` and `prettier-plugin-tailwindcss` (`npm install -D prettier prettier-plugin-tailwindcss`), add `"plugins": ["prettier-plugin-tailwindcss"]` to your `.prettierrc` file, and enable "Format On Save" in VSCode settings. Alternatively, run `npm run format` or `npx prettier --write .` to manually format. The `react-icons` package has been added to the project. The `next/image` component should be used for optimized image loading.  Avoid using custom class names in Tailwind CSS; use existing classes to ensure consistency and maintainability.  Use only standard Tailwind CSS classes. Avoid custom class names.  Use `font-mono` only when necessary and justified.  Explicitly type parameters in callback functions for `filter` and `map` methods to avoid implicit `any` type usage. Explicitly type the return value of `useMemo` to enhance type safety.  Modernize designs using Tailwind CSS for improved UI.
@@ -32,7 +28,6 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - When adding new tasks, ensure that required properties, such as `index`, are included to avoid TypeScript errors.  See example in REFERENCE EXAMPLES.  Ensure that the `index` property is correctly assigned when adding new tasks to avoid TypeScript errors.
 - Ensure components are correctly exported and imported to avoid undefined component type errors.
 - Add return buttons to all practice application pages using Next.js Link component and react-icons.  See example in REFERENCE EXAMPLES.  All practice application pages should include a return button using the Next.js Link component and react-icons. All application pages should include a return button using the Next.js Link component and react-icons. Use only standard Tailwind CSS classes. Avoid custom class names.
-- In `Memory.tsx`, ensure that a date is selected before adding a new entry.  All entries in `Memory.tsx` must include a date.
 
 
 ## WORKFLOW & RELEASE RULES
@@ -154,26 +149,12 @@ const filteredUsers = useMemo<User[]>(
 - Example of correcting missing import of `useMemo` (from 2025-04-04 interaction): Ensure `useMemo` is imported using `import { useMemo, useState } from "react";`
 - Example of correcting missing export of `User` type (from 2025-04-04 interaction): Ensure `User` type is exported using `export type User = { ... };`
 - Example of correcting missing import of `User` type in `Search.tsx` (from 2025-04-04 interaction): Ensure `User` type is imported using `import type { User } from "@/hooks/useSearch";`
-- Example of adding a return button to Search.tsx using Next.js Link component and react-icons:
-```jsx
-<Link href="/" className="mb-8 flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-600 shadow-sm transition-colors hover:bg-gray-50">
-  <FaArrowLeft className="text-gray-400" />
-  戻る
-</Link>
-```
-- Example of adding a return button to Memory.tsx using Next.js Link component and react-icons:
-```jsx
-<Link href="/" className="mb-8 flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-600 shadow-sm transition-colors hover:bg-gray-50">
-  <FaArrowLeft className="text-gray-400" />
-  戻る
-</Link>
-```
 
 
 ## PROJECT DOCUMENTATION & CONTEXT SYSTEM
 - This `.cursorrules` file serves as the primary documentation.
 - Add links to external documentation as needed.
-- The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  Links to Search.tsx and Memory.tsx have been added to the index page.  The index page now includes links to Search.tsx and Memory.tsx.
+- The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.
 
 ## DEBUGGING
 - Utilize browser developer tools.
@@ -194,7 +175,7 @@ const filteredUsers = useMemo<User[]>(
 - **DO:** Use descriptive labels for buttons to clearly indicate their function (e.g., "Start" and "Stop").
 - **DO:** Use `e.preventDefault()` in form submission handlers.
 - **DO:** Use `async/await` for asynchronous operations in form submission handlers.  Handle form submissions using `async/await` and `e.preventDefault()` to prevent default behavior and manage asynchronous operations correctly. Handle form submission on Enter key press by using `onKeyDown` event and checking for `e.key === 'Enter'`.
-- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.  Ensure components are correctly exported and imported to avoid undefined component type errors.  Ensure that all necessary properties, including `index`, are included when creating new tasks. Add return buttons to all practice application pages.  Explicitly type parameters in callback functions and return values of `useMemo`. Ensure `useMemo` is correctly imported and exported. Add return buttons to all application pages.
+- **DO:** Ensure all required properties are included when creating new objects to avoid TypeScript errors.  Ensure that event handlers are correctly assigned to interactive elements.  Ensure components are correctly exported and imported to avoid undefined component type errors.  Ensure that all necessary properties, including `index`, are included when creating new tasks. Add return buttons to all practice application pages.  Explicitly type parameters in callback functions and return values of `useMemo`. Ensure `useMemo` is correctly imported and exported.
 - **DO:** Modernize designs using Tailwind CSS for improved UI.
 - **DON'T:** Commit code with formatting errors.
 - **DON'T:** Ignore Tailwind CSS class order warnings.
@@ -206,4 +187,3 @@ const filteredUsers = useMemo<User[]>(
 - **DON'T:** Forget to assign `onClick` handlers to buttons and other interactive elements.
 - **DON'T:** Forget to correctly export and import components to avoid undefined component type errors.
 - **DON'T:** Forget to include all necessary properties, including `index`, when creating new tasks. Add return buttons to all practice application pages.  Use only standard Tailwind CSS classes. Avoid custom class names.  Do not use implicitly typed parameters in callback functions. Do not omit the return type in `useMemo`. Do not forget to import `useMemo`. Do not forget to correctly export and import types.
-- **DON'T:** Add new entries to `Memory.tsx` without selecting a date.

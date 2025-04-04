@@ -1,11 +1,13 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import {
+  FaBook,
   FaClock,
   FaHourglassHalf,
   FaJedi,
   FaQuestion,
   FaQuoteRight,
+  FaSearch,
   FaStickyNote,
   FaTasks,
   FaTrafficLight,
@@ -27,6 +29,8 @@ const Page: NextPage = () => {
       icon: <FaQuoteRight />,
     },
     { name: "クイズアプリ", path: "/Quiz", icon: <FaQuestion /> },
+    { name: "ユーザー検索", path: "/Search", icon: <FaSearch /> },
+    { name: "日記アプリ", path: "/Memory", icon: <FaBook /> },
   ];
 
   return (
