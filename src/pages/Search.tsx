@@ -12,7 +12,6 @@ const Page: NextPage = () => {
     userName,
     userAge,
     query,
-    users,
     filteredUsers,
     handleChangeUserName,
     handleChangeUserAge,

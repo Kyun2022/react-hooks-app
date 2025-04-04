@@ -7,7 +7,6 @@ import { useMemory } from "@/hooks/useMemory";
 
 const Page: NextPage = () => {
   const {
-    entryList,
     title,
     content,
     date,
