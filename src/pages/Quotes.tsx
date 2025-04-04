@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useEffect } from "react";
 import { FaHome, FaPause, FaPlay, FaRandom } from "react-icons/fa";
 
 import { useQuotes } from "@/hooks/useQuotes";
@@ -14,17 +13,6 @@ const Page: NextPage = () => {
     handleFetchQuote,
     toggleAutoRefresh,
   } = useQuotes();
-
-  useEffect(() => {
-    const fetchQuote = async () => {
-      try {
-        await handleFetchQuote();
-      } catch (err) {
-        console.error("名言の取得に失敗しました:", err);
-      }
-    };
-    void fetchQuote();
-  }, [handleFetchQuote]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-yellow-100 via-amber-100 to-orange-100 py-12">
