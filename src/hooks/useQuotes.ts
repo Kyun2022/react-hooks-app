@@ -65,7 +65,6 @@ export const useQuotes = (): UseQuotesReturn => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAutoRefresh, setIsAutoRefresh] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout>();
   const isMounted = useRef(false);
 
   const getRandomQuote = useCallback((): Quote => {
@@ -117,7 +116,7 @@ export const useQuotes = (): UseQuotesReturn => {
           const randomQuote = getRandomQuote();
           setQuote(randomQuote);
         }
-      }, 10000);
+      }, 2000);
     }
 
     return () => {
