@@ -25,34 +25,34 @@ export const useStarWars = (): UseStarWarsReturn => {
   // キャッシュの参照を保持
   const characterCache = useRef<CharacterCache>({});
 
-  const fetchCharacterWithRetry = async (
-    id: number,
-    retries = 3,
-  ): Promise<Character> => {
-    try {
-      // キャッシュにあればそれを返す
-      if (characterCache.current[id]) {
-        return characterCache.current[id];
-      }
+  const fetchCharacterWithRetry = useCallback(
+    async (id: number, retries = 3): Promise<Character> => {
+      try {
+        // キャッシュにあればそれを返す
+        if (characterCache.current[id]) {
+          return characterCache.current[id];
+        }
 
-      const response = await fetch(`https://swapi.dev/api/people/${id}/`);
-      if (!response.ok) {
-        throw new Error("キャラクター情報の取得に失敗しました");
-      }
-      const data = (await response.json()) as Character;
+        const response = await fetch(`https://swapi.dev/api/people/${id}/`);
+        if (!response.ok) {
+          throw new Error("キャラクター情報の取得に失敗しました");
+        }
+        const data = (await response.json()) as Character;
 
-      // キャッシュに保存
-      characterCache.current[id] = data;
-      return data;
-    } catch (err) {
-      if (retries > 0) {
-        // 1秒待ってリトライ
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return fetchCharacterWithRetry(id, retries - 1);
+        // キャッシュに保存
+        characterCache.current[id] = data;
+        return data;
+      } catch (err) {
+        if (retries > 0) {
+          // 1秒待ってリトライ
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          return fetchCharacterWithRetry(id, retries - 1);
+        }
+        throw err;
       }
-      throw err;
-    }
-  };
+    },
+    [],
+  );
 
   const fetchRandomCharacter = useCallback(async (): Promise<void> => {
     if (isLoading) return;
