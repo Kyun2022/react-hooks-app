@@ -1,15 +1,52 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 interface Quote {
   text: string;
   author: string;
 }
 
-interface QuoteResponse {
-  _id: string;
-  content: string;
-  author: string;
-}
+const QUOTES: Quote[] = [
+  {
+    text: "人生に失敗がないと、人生を失敗する。",
+    author: "斎藤茂吉",
+  },
+  {
+    text: "努力する人は希望を語り、怠ける人は不満を語る。",
+    author: "井上靖",
+  },
+  {
+    text: "苦しみは人を育て、困難は人を鍛える。",
+    author: "西郷隆盛",
+  },
+  {
+    text: "人間は、その人が思うところのものになる。",
+    author: "中村天風",
+  },
+  {
+    text: "夢見ることができれば、それは実現できる。",
+    author: "ウォルト・ディズニー",
+  },
+  {
+    text: "人生において最も大切なのは、自分が何者であるかを知ることである。",
+    author: "ソクラテス",
+  },
+  {
+    text: "今できることをやれ。明日できることは明日やれ。",
+    author: "チャールズ・ディケンズ",
+  },
+  {
+    text: "失敗は成功の母である。",
+    author: "トーマス・エジソン",
+  },
+  {
+    text: "人生は短い。だから、美しいものを求めなさい。",
+    author: "宮沢賢治",
+  },
+  {
+    text: "道を歩いていて、転んでもそれは前に進んでいるのだ。",
+    author: "ヨハン・ヴォルフガング・フォン・ゲーテ",
+  },
+];
 
 interface UseQuotesReturn {
   quote: Quote | null;
@@ -23,23 +60,21 @@ export const useQuotes = (): UseQuotesReturn => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFetchQuote = async (): Promise<void> => {
+  const handleFetchQuote = useCallback(async (): Promise<void> => {
     if (isLoading) return;
 
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch("https://api.quotable.io/random");
-      if (!response.ok) {
-        throw new Error("名言の取得に失敗しました");
-      }
+      // ランダムに名言を選択
+      const randomIndex = Math.floor(Math.random() * QUOTES.length);
+      const randomQuote = QUOTES[randomIndex];
 
-      const data = (await response.json()) as QuoteResponse;
-      setQuote({
-        text: data.content,
-        author: data.author,
-      });
+      // 少し遅延を入れて非同期処理をシミュレート
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      setQuote(randomQuote);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "名言の取得に失敗しました");
@@ -47,7 +82,7 @@ export const useQuotes = (): UseQuotesReturn => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isLoading]);
 
   return {
     quote,

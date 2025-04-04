@@ -17,7 +17,7 @@ const Page: NextPage = () => {
       }
     };
     void fetchQuote();
-  }, [handleFetchQuote]);
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-yellow-100 via-amber-100 to-orange-100 py-12">

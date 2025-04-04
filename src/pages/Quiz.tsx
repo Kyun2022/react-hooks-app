@@ -1,5 +1,7 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
+import { FaHome } from "react-icons/fa";
 
 type Question = {
   id: number;
@@ -70,6 +72,15 @@ const Page: NextPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 py-12">
+      {/* 戻るボタン */}
+      <Link
+        href="/"
+        className="group fixed left-4 top-4 flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-gray-600 shadow-lg backdrop-blur-sm transition-all hover:bg-white"
+      >
+        <FaHome className="transition-transform duration-300 group-hover:-translate-x-1" />
+        ホームに戻る
+      </Link>
+
       <div className="mx-auto max-w-4xl px-4">
         <div className="rounded-2xl bg-white p-8 shadow-xl">
           {/* カテゴリーバッジ */}
