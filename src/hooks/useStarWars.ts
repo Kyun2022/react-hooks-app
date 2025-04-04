@@ -61,9 +61,7 @@ export const useStarWars = (): UseStarWarsReturn => {
     setError(null);
 
     try {
-      // ランダムなIDを生成（1からTOTAL_CHARACTERSまで）
       const randomId = Math.floor(Math.random() * TOTAL_CHARACTERS) + 1;
-
       const characterData = await fetchCharacterWithRetry(randomId);
       setCharacter(characterData);
       setError(null);
@@ -77,7 +75,7 @@ export const useStarWars = (): UseStarWarsReturn => {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading]);
+  }, [isLoading, fetchCharacterWithRetry]);
 
   const handleClickNextCharacter = async (): Promise<void> => {
     try {
