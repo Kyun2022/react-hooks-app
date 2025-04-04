@@ -26,7 +26,7 @@ const Page: NextPage = () => {
           </div>
 
           <div className="mt-4 text-center">
-            <div className="font-mono text-center text-6xl tracking-wider text-gray-800">
+            <div className="text-center text-6xl tracking-wider text-gray-800">
               {formattedTime}
             </div>
 
