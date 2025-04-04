@@ -52,7 +52,7 @@ const QUOTES: Quote[] = [
 const INITIAL_QUOTE = QUOTES[0];
 
 interface UseQuotesReturn {
-  quote: Quote | null;
+  quote: Quote;
   error: string | null;
   isLoading: boolean;
   isAutoRefresh: boolean;
@@ -61,15 +61,15 @@ interface UseQuotesReturn {
 }
 
 export const useQuotes = (): UseQuotesReturn => {
-  const [quote, setQuote] = useState<Quote | null>(INITIAL_QUOTE);
+  const [quote, setQuote] = useState<Quote>(INITIAL_QUOTE);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAutoRefresh, setIsAutoRefresh] = useState(true);
+  const [isAutoRefresh, setIsAutoRefresh] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout>();
-  const isInitialMount = useRef(true);
+  const isMounted = useRef(false);
 
   const getRandomQuote = useCallback((): Quote => {
-    const currentIndex = QUOTES.findIndex((q) => q.text === quote?.text);
+    const currentIndex = QUOTES.findIndex((q) => q.text === quote.text);
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * QUOTES.length);
@@ -90,7 +90,6 @@ export const useQuotes = (): UseQuotesReturn => {
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "名言の取得に失敗しました");
-      setQuote(null);
     } finally {
       setIsLoading(false);
     }
@@ -100,27 +99,32 @@ export const useQuotes = (): UseQuotesReturn => {
     setIsAutoRefresh((prev) => !prev);
   }, []);
 
+  // クライアントサイドでのみ自動更新を設定
   useEffect(() => {
-    // 初回マウント時はスキップ
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
-    // 自動更新の設定
+  useEffect(() => {
+    if (!isMounted.current) return;
+
+    let timer: NodeJS.Timeout;
     if (isAutoRefresh) {
-      intervalRef.current = setInterval(() => {
-        const randomQuote = getRandomQuote();
-        setQuote(randomQuote);
-      }, 10000);
-
-      return () => {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = undefined;
+      timer = setInterval(() => {
+        if (isMounted.current) {
+          const randomQuote = getRandomQuote();
+          setQuote(randomQuote);
         }
-      };
+      }, 10000);
     }
+
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
   }, [isAutoRefresh, getRandomQuote]);
 
   return {
