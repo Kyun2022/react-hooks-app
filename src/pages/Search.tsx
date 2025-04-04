@@ -46,9 +46,11 @@ const Page: NextPage = () => {
             value={userName}
           />
           <input
-            type="text"
+            type="number"
             placeholder="年齢を入力してください"
-            className="mt-3 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm transition-colors placeholder:text-gray-400 focus:border-blue-500 focus:outline-none"
+            min="0"
+            max="150"
+            className="mt-3 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm transition-colors [appearance:textfield] placeholder:text-gray-400 focus:border-blue-500 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             onChange={handleChangeUserAge}
             value={userAge}
           />

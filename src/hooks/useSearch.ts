@@ -35,7 +35,11 @@ export const useSearch = (): UseSearch => {
   };
 
   const handleChangeUserAge = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAge(e.target.value);
+    const value = e.target.value;
+    // 空文字列または有効な数値のみを許可
+    if (value === "" || (Number(value) >= 0 && Number(value) <= 150)) {
+      setUserAge(value);
+    }
   };
 
   const handleSearchUser = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,12 +47,14 @@ export const useSearch = (): UseSearch => {
   };
 
   const handleAddUser = () => {
+    const age = Number(userAge);
+    if (userName.trim() === "" || !age || age <= 0 || age > 150) return;
+
     const newUser: User = {
-      name: userName,
-      age: Number(userAge),
+      name: userName.trim(),
+      age: age,
     };
 
-    if (userName === "" || Number(userAge) === 0) return;
     setUsers((prevUsers) => [...prevUsers, newUser]);
     setUserName("");
     setUserAge("");
