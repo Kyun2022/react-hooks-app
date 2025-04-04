@@ -14,19 +14,19 @@ import { SiPokemon } from "react-icons/si";
 
 const Page: NextPage = () => {
   const apps = [
-    { name: "Todoアプリ", path: "/todo", icon: <FaTasks /> },
-    { name: "メモアプリ", path: "/memo", icon: <FaStickyNote /> },
-    { name: "ポケモン図鑑", path: "/pokemon", icon: <SiPokemon /> },
-    { name: "Star Wars API", path: "/starwars", icon: <FaJedi /> },
-    { name: "時計", path: "/clock", icon: <FaClock /> },
-    { name: "タイマー", path: "/timer", icon: <FaHourglassHalf /> },
-    { name: "信号機", path: "/signal", icon: <FaTrafficLight /> },
+    { name: "Todoアプリ", path: "/Todo", icon: <FaTasks /> },
+    { name: "メモアプリ", path: "/Memo", icon: <FaStickyNote /> },
+    { name: "ポケモン図鑑", path: "/Pokemon", icon: <SiPokemon /> },
+    { name: "Star Wars API", path: "/StarWars", icon: <FaJedi /> },
+    { name: "時計", path: "/Clock", icon: <FaClock /> },
+    { name: "タイマー", path: "/Timer", icon: <FaHourglassHalf /> },
+    { name: "信号機", path: "/Signal", icon: <FaTrafficLight /> },
     {
       name: "名言ジェネレーター",
-      path: "/quotes",
+      path: "/Quotes",
       icon: <FaQuoteRight />,
     },
-    { name: "クイズアプリ", path: "/quiz", icon: <FaQuestion /> },
+    { name: "クイズアプリ", path: "/Quiz", icon: <FaQuestion /> },
   ];
 
   return (
