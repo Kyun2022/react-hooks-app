@@ -4,7 +4,7 @@
     "paths": {
       "@/*": ["./src/*"] // よく使うパスにエイリアスをつける。  @/components が ./src/components
     },
-    "target": "ES2022",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,7 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "useDefineForClassFields": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
