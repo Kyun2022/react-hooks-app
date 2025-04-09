@@ -19,7 +19,9 @@
     "jsx": "preserve",
     "incremental": true,
     "useDefineForClassFields": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "jsxImportSource": "react",
+    "types": ["react/jsx-runtime"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

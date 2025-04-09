@@ -1,7 +1,3 @@
----
-description: Cursor rules derived by SpecStory from the project AI interaction history
-globs: *
----
 
 ## PROJECT OVERVIEW
 This project is a Next.js application.  It includes a collection of practice applications accessible from the main page. The main landing page is located at `pages/index.tsx`. All practice applications are now linked from the main page.  The landing page has been redesigned for improved aesthetics and user experience. The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  The `/pages/practice` directory has been removed. Links to Search.tsx and Memory.tsx have been added to the index page.  Links to Search.tsx and Memory.tsx have been added to the index page.  The main page now includes links to Search.tsx and Memory.tsx, with improved styling and iconography.  Links to Search.tsx and Memory.tsx have been added to the index page.
@@ -20,10 +16,6 @@ The project follows a standard Next.js folder structure. See `<project-structure
 - prettier-plugin-tailwindcss
 - react-icons
 - VSCode Extensions: Tailwind CSS Class Sorter, Tailwind CSS IntelliSense
-- eslint
-- @typescript-eslint/parser
-- @typescript-eslint/eslint-plugin
-- eslint-plugin-react
 
 ## PROJECT-SPECIFIC STANDARDS
 - Maintain consistent naming conventions.  All filenames should be lowercase.  All application pages should include a return button using the Next.js Link component and react-icons.
@@ -195,7 +187,7 @@ const filteredEntries = useMemo(() => {
 - This `.cursorrules` file serves as the primary documentation.
 - Add links to external documentation as needed.
 - The `pages/index.tsx` file provides a landing page with links to practice applications.  This page now includes links to all applications in the `/pages` directory.  The main landing page (`pages/index.tsx`) now includes links to all practice applications in the `/pages` directory, with improved styling and iconography.  Links to Search.tsx and Memory.tsx have been added to the index page.  The index page now includes links to Search.tsx and Memory.tsx.
-- **tsconfig.json update (2025-04-09):** The `target` property in `tsconfig.json` has been updated to `ES2022`, then to `ESNext` to better support `const` and `let` declarations and avoid implicit `var` conversion. The `useDefineForClassFields` property has been added to the `tsconfig.json` file.  The `sourceMap` property has been added to enable source maps for easier debugging in the browser. Next.js's `next.config.js` has been updated to enable production browser source maps (`productionBrowserSourceMaps: true`) for improved debugging in production. No code changes were required as a result of the ES2022 update.  No issues were found related to this change.  The `next.config.js` file has been updated to include  `productionBrowserSourceMaps: true` and additional webpack configurations to improve source map generation in both development and production environments.  The `devtool` property in the webpack configuration is now set to `'eval-source-map'` in development and `'source-map'` in production, providing more detailed source maps for debugging.  Additional optimization settings have been added to the webpack configuration for production builds to minimize bundle size and improve performance while maintaining source map functionality.
+- **tsconfig.json update (2025-04-09):** The `target` property in `tsconfig.json` has been updated to `ES2022`.  A further update to `ESNext` is recommended to better support `const` and `let` declarations and avoid implicit `var` conversion. The `useDefineForClassFields` property should also be added to the `tsconfig.json` file. No code changes were required as a result of the ES2022 update.  No issues were found related to this change.
 
 
 ## DEBUGGING
