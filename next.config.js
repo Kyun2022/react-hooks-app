@@ -12,6 +12,14 @@ module.exports = withInterceptStdout(
     experimental: {
       scrollRestoration: true,
     },
+    productionBrowserSourceMaps: true,
+    webpack: (config, { dev, isServer }) => {
+      // 開発環境とプロダクション環境の両方でソースマップを有効化
+      if (!isServer) {
+        config.devtool = 'source-map';
+      }
+      return config;
+    },
   },
   (text) => (text.includes('Duplicate atom key') ? '' : text),
 );
